@@ -1,21 +1,22 @@
 package svc
 
 import (
-    {{.imports}}
+	{{.configImport}}
 
-    "github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/v8"
     "go.mongodb.org/mongo-driver/mongo"
     "github.com/neccoys/go-driver/mongox"
     "strings"
 )
 
 type ServiceContext struct {
-	Config      config.Config
-    RedisClient *redis.Client
-    BoDB        *mongo.Client
+	Config {{.config}}
+	RedisClient  *redis.Client
+	BoDB         *mongo.Client
+	{{.middleware}}
 }
 
-func NewServiceContext(c config.Config) *ServiceContext {
+func NewServiceContext(c {{.config}}) *ServiceContext {
 	// Redis
 	redisClient := redis.NewFailoverClient(&redis.FailoverOptions{
 		MasterName:    c.RedisCache.RedisMasterName,
@@ -25,9 +26,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	// MongoDB
     db, err := mongox.New(c.Mongo.Host).
-		SetReplicaSet(c.Mongo.ReplicaSet).
-		SetPool(c.Mongo.PoolMin, c.Mongo.PoolMax, c.Mongo.ConnIdleTime).
-		Connect()
+        SetReplicaSet(c.Mongo.ReplicaSet).
+        SetPool(c.Mongo.PoolMin, c.Mongo.PoolMax, c.Mongo.ConnIdleTime).
+        Connect()
 
 	if err != nil {
 		panic(err)
@@ -37,5 +38,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:      c,
         RedisClient: redisClient,
         BoDB:        db,
+		{{.middlewareAssignment}}
 	}
 }
