@@ -1,7 +1,6 @@
 package svc
 
 import (
-    "fmt"
     {{.imports}}
 
     "github.com/go-redis/redis/v8"

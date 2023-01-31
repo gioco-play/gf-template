@@ -11,7 +11,6 @@ type Config struct {
     Mongo struct {
         Host          string
         ReplicaSet    string
-        Database      string
         PoolMin       uint64
         PoolMax       uint64
         ConnIdleTime  uint64

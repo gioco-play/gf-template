@@ -13,7 +13,6 @@ Telemetry:
 Mongo:
   Host: ${MONGO_HOST}
   ReplicaSet: ${MONGO_REPLICASET}
-  Database: ${MONGO_DATABASE}
   PoolMin: ${MONGO_POOL_MIN}
   PoolMax: ${MONGO_POOL_MAX}
   ConnIdleTime: ${MONGO_IDLE_TIME}
