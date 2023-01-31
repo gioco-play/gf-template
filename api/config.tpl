@@ -12,11 +12,11 @@ type Config struct {
         Target string
     }
     Mongo struct {
-        Host          string
-        ReplicaSet    string
-        PoolMin       uint64
-        PoolMax       uint64
-        ConnIdleTime  uint64
+        Host            string
+        ReplicaSet      string
+        MinPoolSize     uint64
+        MaxPoolSize     uint64
+        MaxConnIdleTime uint64
     }
     RedisCache struct {
         RedisSentinelNode string

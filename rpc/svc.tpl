@@ -26,7 +26,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	// MongoDB
     db, err := mongox.New(c.Mongo.Host).
 		SetReplicaSet(c.Mongo.ReplicaSet).
-		SetPool(c.Mongo.PoolMin, c.Mongo.PoolMax, c.Mongo.ConnIdleTime).
+		SetPool(c.Mongo.MinPoolSize, c.Mongo.MaxPoolSize, c.Mongo.MaxConnIdleTime).
 		Connect()
 
 	if err != nil {

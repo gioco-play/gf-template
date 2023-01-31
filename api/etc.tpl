@@ -15,9 +15,9 @@ Telemetry:
 Mongo:
   Host: ${MONGO_HOST}
   ReplicaSet: ${MONGO_REPLICASET}
-  PoolMin: ${MONGO_POOL_MIN}
-  PoolMax: ${MONGO_POOL_MAX}
-  ConnIdleTime: ${MONGO_IDLE_TIME}
+  MinPoolSize: ${MONGO_MIN_POOL}
+  MaxPoolSize: ${MONGO_MAX_POOL}
+  MaxConnIdleTime: ${MONGO_IDLE_TIME}
 
 RedisCache:
   RedisSentinelNode: ${REDIS_SENTINEL_NODE}
