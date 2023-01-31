@@ -2,8 +2,6 @@ package middleware
 
 import (
     "net/http"
-    "io"
-    "mime"
     "go.mongodb.org/mongo-driver/mongo"
 	"github.com/go-redis/redis/v8"
 )
