@@ -12,9 +12,9 @@ type Config struct {
         Host          string
         ReplicaSet    string
         Database      string
-        PoolMin       int
-        PoolMax       int
-        ConnIdleTime  int
+        PoolMin       uint64
+        PoolMax       uint64
+        ConnIdleTime  uint64
     }
     RedisCache struct {
         RedisSentinelNode string
