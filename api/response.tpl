@@ -1,28 +1,50 @@
 package respx
 
 import (
-    "net/http"
+	"net/http"
+	{{.ImportPackages}}
 
-    "github.com/zeromicro/go-zero/rest/httpx"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 type Body struct {
-    Status int         `json:"status"`
-    Msg  string      `json:"msg"`
-    Data interface{} `json:"data,omitempty"`
+	Status int         `json:"status"`
+	Msg    string      `json:"msg"`
+	Data   interface{} `json:"data,omitempty"`
 }
 
-func Response(w http.ResponseWriter, status int, resp interface{}, err error) {
-    var body Body
+func Success(w http.ResponseWriter, resp interface{}) {
+	httpx.OkJson(w, &Body{
+		Status: SUCCESS.Code,
+		Msg:    SUCCESS.Message,
+		Data:   resp,
+	})
+}
 
-     body.Status = status
+func SuccessWithoutData(w http.ResponseWriter) {
+	httpx.OkJson(w, &Body{
+		Status: SUCCESS.Code,
+		Msg:    SUCCESS.Message,
+	})
+}
 
-    if err != nil {
-        body.Msg = err.Error()
-    } else {
-        body.Msg = "Success"
-        body.Data = resp
-    }
+func Fail(w http.ResponseWriter, state *Resp) {
+	httpx.OkJson(w, &Body{
+		Status: state.Code,
+		Msg:    state.Message,
+	})
+}
 
-    httpx.OkJson(w, body)
+func FailWithError(w http.ResponseWriter, err error) {
+	var body *Body
+
+	if v, ok := err.(*errorx.Err); ok && v.Error() != "" {
+		body.Status = v.GetStatus()
+		body.Msg = v.Error()
+	} else {
+		body.Status = FAIL.Code
+		body.Msg = err.Error()
+	}
+
+	httpx.OkJson(w, body)
 }
