@@ -15,7 +15,7 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
             return
         }
 
-        if err := util.MyValidator.Struct(req); err != nil {
+        if err := utils.MyValidator.Struct(req); err != nil {
             respx.Fail(w, respx.INCORRECT_DATA_FIELD)
             return
         }{{end}}
