@@ -15,7 +15,7 @@ type Body struct {
 
 func Success(w http.ResponseWriter, resp interface{}) {
 	httpx.OkJson(w, &Body{
-		Status: SUCCESS.Code,
+		Status: SUCCESS.Status,
 		Msg:    SUCCESS.Message,
 		Data:   resp,
 	})
@@ -23,26 +23,26 @@ func Success(w http.ResponseWriter, resp interface{}) {
 
 func SuccessWithoutData(w http.ResponseWriter) {
 	httpx.OkJson(w, &Body{
-		Status: SUCCESS.Code,
+		Status: SUCCESS.Status,
 		Msg:    SUCCESS.Message,
 	})
 }
 
-func Fail(w http.ResponseWriter, state *Resp) {
+func Fail(w http.ResponseWriter, state *errorx.Err) {
 	httpx.OkJson(w, &Body{
-		Status: state.Code,
+		Status: state.Status,
 		Msg:    state.Message,
 	})
 }
 
 func FailWithError(w http.ResponseWriter, err error) {
-	var body *Body
+	var body Body
 
 	if v, ok := err.(*errorx.Err); ok && v.Error() != "" {
 		body.Status = v.GetStatus()
 		body.Msg = v.Error()
 	} else {
-		body.Status = FAIL.Code
+		body.Status = FAIL.Status
 		body.Msg = err.Error()
 	}
 
