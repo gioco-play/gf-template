@@ -23,7 +23,7 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := {{.LogicName}}.New{{.LogicType}}(r.Context(), svcCtx)
 		{{if .HasResp}}resp, {{end}}err := l.{{.Call}}({{if .HasRequest}}&req{{end}})
 		if err != nil {
-            respx.FailWithError(w, err)
+            respx.Fail(w, err)
         } else {
             {{if .HasResp}}respx.Success(w, resp){{else}}respx.SuccessWithoutData(w, resp){{end}}
         }
