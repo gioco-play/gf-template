@@ -1,7 +1,8 @@
 // 擴充範本作為共用
 package respx
-
-{{.ImportPackages}}
+import (
+    {{.ImportPackages}}
+)
 
 var (
 	FAIL                                        = &errorx.Err{Status: 9999, Message: "Fail"}
