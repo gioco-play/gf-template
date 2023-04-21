@@ -21,21 +21,7 @@ func Success(w http.ResponseWriter, resp interface{}) {
 	})
 }
 
-func SuccessWithoutData(w http.ResponseWriter) {
-	httpx.OkJson(w, &Body{
-		Status: SUCCESS.Status,
-		Msg:    SUCCESS.Message,
-	})
-}
-
-func Fail(w http.ResponseWriter, state *errorx.Err) {
-	httpx.OkJson(w, &Body{
-		Status: state.Status,
-		Msg:    state.Message,
-	})
-}
-
-func FailWithError(w http.ResponseWriter, err error) {
+func Fail(w http.ResponseWriter, err error) {
 	var body Body
 
 	if v, ok := err.(*errorx.Err); ok && v.Error() != "" {
