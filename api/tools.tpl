@@ -1,6 +1,7 @@
 package utils
 
 import (
+    "encoding/hex"
 	"fmt"
 
 	"math"
@@ -16,13 +17,16 @@ func MakeTimestamp() int64 {
 }
 
 func MakeTraceID(prefix, suffix string) string {
+gen:
+	b := make([]byte, 8)
+	_, err := rand.Read(b)
+	if err != nil {
+		goto gen
+	}
 	t := time.Now()
-	rand.Seed(time.Now().UnixNano())
-	x := rand.Intn(999) + 1
-	y := rand.Intn(999) + 1
-	return strings.ToUpper(prefix) + t.Format("060102150405") +
-		fmt.Sprintf("%03d", x) + fmt.Sprintf("%03d", y) +
-		strings.ToUpper(suffix)
+	ts := t.Format("060102150405")
+	id := prefix + fmt.Sprintf("%s", ts) + strings.ToUpper(hex.EncodeToString(b)[:6]) + suffix
+	return id
 }
 
 func GetCurrentWeek() string {
