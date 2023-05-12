@@ -25,7 +25,7 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		if err != nil {
             respx.Fail(w, err)
         } else {
-            {{if .HasResp}}respx.Success(w, resp){{else}}respx.SuccessWithoutData(w, resp){{end}}
+            {{if .HasResp}}respx.Success(w, resp){{else}}w.WriteHeader(http.StatusOK){{end}}
         }
 	}
 }
