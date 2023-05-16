@@ -27,6 +27,11 @@ RedisCache:
 Consul:
   Target: ${CONSUL_HOST}
 
+Postgres:
+  MinPoolSize: ${POSTGRES_MIN_POOL}
+  MaxPoolSize: ${POSTGRES_MAX_POOL}
+  MaxConnIdleTime: ${POSTGRES_IDLE_TIME}
+
 Prometheus:
   Host: ${PROMETHEUS_HOST}
   Port: ${PROMETHEUS_PORT}
