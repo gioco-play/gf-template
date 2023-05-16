@@ -21,4 +21,9 @@ type Config struct {
         RedisMasterName   string
         RedisDB           int
     }
+    Postgres struct {
+        MinPoolSize     int
+        MaxPoolSize     int
+        MaxConnIdleTime int
+    }
 }
