@@ -1,9 +1,11 @@
 package respx
 
 import (
+    "context"
     "net/http"
     {{.ImportPackages}}
 
+    "github.com/zeromicro/go-zero/core/logx"
     "github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -20,6 +22,8 @@ func Success(w http.ResponseWriter, r *http.Request, resp interface{}) {
         Data:   resp,
     }
 
+    LogResponse(r.Context(), body, w.Header())
+
     httpx.OkJson(w, body)
 }
 
@@ -34,5 +38,21 @@ func Fail(w http.ResponseWriter, r *http.Request, err error) {
         body.Msg = err.Error()
     }
 
+    LogResponse(r.Context(), body, w.Header())
+
     httpx.OkJson(w, body)
+}
+
+func LogResponse(ctx context.Context, resp any, headers map[string][]string, fields ...logx.LogField) {
+	fields = append(fields,
+		logx.LogField{
+			Key:   "response",
+			Value: resp,
+		},
+		logx.LogField{
+			Key:   "header",
+			Value: headers,
+		},
+	)
+	logx.WithContext(ctx).Infow("response", fields...)
 }
