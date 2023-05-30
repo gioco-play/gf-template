@@ -1,15 +1,17 @@
 package utils
 
 import (
+    "context"
     "encoding/hex"
-	"fmt"
+    "fmt"
+    "github.com/zeromicro/go-zero/core/logx"
 
-	"math"
-	"math/rand"
-	"net"
-	"strconv"
-	"strings"
-	"time"
+    "math"
+    "math/rand"
+    "net"
+    "strconv"
+    "strings"
+    "time"
 )
 
 func MakeTimestamp() int64 {
@@ -63,4 +65,32 @@ func Contains(a []string, x string) bool {
 
 func RoundTo(n float64, decimals uint32) float64 {
 	return math.Round(n*math.Pow(10, float64(decimals))) / math.Pow(10, float64(decimals))
+}
+
+func LogRequest(ctx context.Context, req any, headers map[string][]string, fields ...logx.LogField) {
+	fields = append(fields,
+		logx.LogField{
+			Key:   "request",
+			Value: req,
+		},
+		logx.LogField{
+			Key:   "header",
+			Value: headers,
+		},
+	)
+	logx.WithContext(ctx).Infow("request", fields...)
+}
+
+func LogResponse(ctx context.Context, resp any, headers map[string][]string, fields ...logx.LogField) {
+	fields = append(fields,
+		logx.LogField{
+			Key:   "response",
+			Value: resp,
+		},
+		logx.LogField{
+			Key:   "header",
+			Value: headers,
+		},
+	)
+	logx.WithContext(ctx).Infow("response", fields...)
 }
