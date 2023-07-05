@@ -1,8 +1,10 @@
 Name: ${APP_NAME}
 ListenOn: ${APP_HOST}
+Timeout: ${TIMEOUT}
 
 Log:
   Mode: ${LOG_MODE}
+  Stat: ${LOG_STAT}
 
 Telemetry:
   Name: ${APP_NAME}
