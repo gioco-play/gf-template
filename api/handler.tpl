@@ -10,6 +10,7 @@ import (
 
 func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+	    ctx := r.Context()
 		{{if .HasRequest}}var req types.{{.RequestType}}
 		if err := httpx.Parse(r, &req); err != nil {
 		    logx.Error("{{.HandlerName}} error:", err)
@@ -23,9 +24,9 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
             return
         }{{end}}
 
-        utils.LogRequest(r.Context(), req, r.Header)
+        utils.LogRequest(ctx, r, r.Header)
 
-		l := {{.LogicName}}.New{{.LogicType}}(r.Context(), svcCtx)
+		l := {{.LogicName}}.New{{.LogicType}}(ctx, svcCtx)
 		{{if .HasResp}}resp, {{end}}err := l.{{.Call}}({{if .HasRequest}}&req{{end}})
 		if err != nil {
             respx.Fail(w, r, err)
