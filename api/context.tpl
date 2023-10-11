@@ -24,20 +24,12 @@ func NewServiceContext(c {{.config}}) *ServiceContext {
 		DB:            c.RedisCache.RedisDB,
 	})
 
-	// BoMongoDB
-    db, err := mongox.New(c.Mongo.Host).
-        SetReplicaSet(c.Mongo.ReplicaSet).
-        SetPool(c.Mongo.MinPoolSize, c.Mongo.MaxPoolSize, c.Mongo.MaxConnIdleTime).
-        Connect()
-
-	if err != nil {
-		panic(err)
-	}
+	datebasex := dbx.New(c.BoMongo).SetTxPool(c.TxPool)
 
 	return &ServiceContext{
 		Config:      c,
         RedisClient: redisClient,
-        Databasex:        dbx.New(db).SetTxPool(c.TxPool),
+        Databasex:   datebasex,
 		{{.middlewareAssignment}}
 	}
 }

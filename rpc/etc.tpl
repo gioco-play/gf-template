@@ -12,7 +12,7 @@ Telemetry:
   Sampler: 1.0
   Batcher: jaeger
 
-Mongo:
+BoMongo:
   Host: ${MONGO_HOST}
   ReplicaSet: ${MONGO_REPLICASET}
   MinPoolSize: ${MONGO_MIN_POOL}

@@ -13,13 +13,7 @@ type Config struct {
     Consul struct {
         Target string
     }
-    Mongo struct {
-        Host            string
-        ReplicaSet      string
-        MinPoolSize     uint64
-        MaxPoolSize     uint64
-        MaxConnIdleTime uint64
-    }
+    BoMongo dbx.BoMongoSetting
     RedisCache struct {
         RedisSentinelNode string
         RedisMasterName   string
