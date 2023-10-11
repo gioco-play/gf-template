@@ -24,6 +24,11 @@ RedisCache:
   RedisMasterName: ${REDIS_MASTER_NAME}
   RedisDB: ${REDIS_DB}
 
+TxPool:
+  MinPoolSize: ${POSTGRES_MIN_POOL}
+  MaxPoolSize: ${POSTGRES_MAX_POOL}
+  MaxConnIdleTime: ${POSTGRES_IDLE_TIME}
+
 Consul:
   Host: ${CONSUL_HOST}
   Key: ${APP_NAME}

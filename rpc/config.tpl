@@ -3,6 +3,7 @@ package config
 import (
     "github.com/zeromicro/go-zero/zrpc"
     "github.com/zeromicro/zero-contrib/zrpc/registry/consul"
+    "github.com/gioco-play/kit-plus/tool/dbx"
 )
 
 type Config struct {
@@ -20,4 +21,5 @@ type Config struct {
         RedisMasterName   string
         RedisDB           int
     }
+    TxPool dbx.TxPool
 }

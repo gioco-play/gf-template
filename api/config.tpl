@@ -1,6 +1,10 @@
 package config
 
-import {{.authImport}}
+import (
+    {{.authImport}}
+
+    "github.com/gioco-play/kit-plus/tool/dbx"
+)
 
 type Config struct {
 	rest.RestConf
@@ -21,9 +25,5 @@ type Config struct {
         RedisMasterName   string
         RedisDB           int
     }
-    Postgres struct {
-        MinPoolSize     int
-        MaxPoolSize     int
-        MaxConnIdleTime int
-    }
+    TxPool dbx.TxPool
 }

@@ -4,7 +4,7 @@ import (
     {{.imports}}
 
     "github.com/go-redis/redis/v8"
-    "go.mongodb.org/mongo-driver/mongo"
+    "github.com/gioco-play/kit-plus/tool/dbx"
     "github.com/neccoys/go-driver/mongox"
     "strings"
 )
@@ -12,7 +12,7 @@ import (
 type ServiceContext struct {
 	Config      config.Config
     RedisClient *redis.Client
-    BoDB        *mongo.Client
+    *dbx.Databasex
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -23,7 +23,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		DB:            c.RedisCache.RedisDB,
 	})
 
-	// MongoDB
+	// BoMongoDB
     db, err := mongox.New(c.Mongo.Host).
 		SetReplicaSet(c.Mongo.ReplicaSet).
 		SetPool(c.Mongo.MinPoolSize, c.Mongo.MaxPoolSize, c.Mongo.MaxConnIdleTime).
@@ -36,6 +36,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:      c,
         RedisClient: redisClient,
-        BoDB:        db,
+        Databasex:   dbx.New(db).SetTxPool(c.TxPool),
 	}
 }

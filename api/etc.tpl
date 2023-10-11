@@ -28,7 +28,7 @@ RedisCache:
 Consul:
   Target: ${CONSUL_HOST}
 
-Postgres:
+TxPool:
   MinPoolSize: ${POSTGRES_MIN_POOL}
   MaxPoolSize: ${POSTGRES_MAX_POOL}
   MaxConnIdleTime: ${POSTGRES_IDLE_TIME}
