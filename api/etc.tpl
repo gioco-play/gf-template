@@ -2,6 +2,7 @@ Name: ${APP_NAME}
 Host: ${APP_HOST}
 Port: ${APP_PORT}
 Timeout: ${TIMEOUT}
+ServiceEnv: ${SERVICE_ENV}
 
 Log:
   Mode: ${LOG_MODE}

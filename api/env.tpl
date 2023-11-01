@@ -2,6 +2,8 @@ APP_NAME={{.serviceName}}
 APP_MODE=debug
 APP_HOST={{.host}}
 APP_PORT={{.port}}
+SERVICE_ENV=env
+
 TIMEOUT=20000
 LOG_MODE=console
 LOG_STAT=false
