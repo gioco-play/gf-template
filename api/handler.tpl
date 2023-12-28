@@ -24,7 +24,7 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
             return
         }{{end}}
 
-        utils.LogRequest(ctx, r, r.Header)
+        {{if .HasRequest}}utils.LogRequest(ctx, req, r.Header){{end}})
 
 		l := {{.LogicName}}.New{{.LogicType}}(ctx, svcCtx)
 		{{if .HasResp}}resp, {{end}}err := l.{{.Call}}({{if .HasRequest}}&req{{end}})
