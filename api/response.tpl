@@ -7,12 +7,14 @@ import (
 
     "github.com/zeromicro/go-zero/core/logx"
     "github.com/zeromicro/go-zero/rest/httpx"
+    "go.opentelemetry.io/otel/trace"
 )
 
 type Body struct {
     Status int         `json:"status"`
     Msg    string      `json:"msg"`
     Data   interface{} `json:"data,omitempty"`
+    Trace  string      `json:"trace,omitempty"`
 }
 
 func Success(w http.ResponseWriter, r *http.Request, resp interface{}) {
@@ -22,7 +24,11 @@ func Success(w http.ResponseWriter, r *http.Request, resp interface{}) {
         Data:   resp,
     }
 
-    LogResponse(r.Context(), body, w.Header())
+    ctx := r.Context()
+    LogResponse(ctx, body, w.Header())
+
+    span := trace.SpanFromContext(ctx)
+    body.Trace = span.SpanContext().TraceID().String()
 
     httpx.OkJson(w, body)
 }
@@ -38,7 +44,11 @@ func Fail(w http.ResponseWriter, r *http.Request, err error) {
         body.Msg = err.Error()
     }
 
-    LogResponse(r.Context(), body, w.Header())
+    ctx := r.Context()
+    LogResponse(ctx, body, w.Header())
+
+    span := trace.SpanFromContext(ctx)
+    body.Trace = span.SpanContext().TraceID().String()
 
     httpx.OkJson(w, body)
 }
