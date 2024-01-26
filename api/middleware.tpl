@@ -23,8 +23,8 @@ func (m *{{.name}})Handle(next http.HandlerFunc) http.HandlerFunc {
         //// 驗證是否為 application/json
         // ctHdr := r.Header.Get("Content-Type")
         // contentType, _, err := mime.ParseMediaType(ctHdr)
-        // if contentType != "application/json" {
-        //     respx.Response(w, nil, errors.New("request form format error."))
+        // if  err != nil || contentType != "application/json" {
+        //     respx.Fail(w, r, respx.INCORRECT_DATA_FIELD)
         //     return
         // }
         // // 讀取Body後
