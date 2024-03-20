@@ -2,7 +2,7 @@ APP_NAME={{.serviceName}}
 APP_MODE=debug
 APP_HOST={{.host}}
 APP_PORT={{.port}}
-MODE=env
+MODE=dev
 
 TIMEOUT=20000
 LOG_MODE=console

@@ -1,7 +1,7 @@
 Name: ${APP_NAME}
 ListenOn: ${APP_HOST}
 Timeout: ${TIMEOUT}
-ServiceEnv: ${SERVICE_ENV}
+Mode: ${MODE}
 
 Log:
   Mode: ${LOG_MODE}
