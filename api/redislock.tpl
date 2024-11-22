@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	red "github.com/go-redis/redis/v8"
+	red "github.com/redis/go-redis/v9"
 	"math/rand"
 	"strconv"
 	"sync/atomic"

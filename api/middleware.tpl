@@ -3,7 +3,7 @@ package middleware
 import (
     "net/http"
     "go.mongodb.org/mongo-driver/mongo"
-	"github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 type {{.name}} struct {

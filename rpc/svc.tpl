@@ -3,7 +3,7 @@ package svc
 import (
     {{.imports}}
 
-    "github.com/go-redis/redis/v8"
+    "github.com/redis/go-redis/v9"
     "github.com/gioco-play/kit-plus/tool/dbx"
     "strings"
 )
