@@ -22,11 +22,11 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		DB:            c.RedisCache.RedisDB,
 	})
 
-	datebasex := dbx.New(c.BoMongo).SetTxPool(c.TxPool)
+	databasex := dbx.New(c.BoMongo).SetTxPool(c.TxPool)
 
 	return &ServiceContext{
 		Config:      c,
         RedisClient: redisClient,
-        Databasex:   datebasex,
+        Databasex:   databasex,
 	}
 }
