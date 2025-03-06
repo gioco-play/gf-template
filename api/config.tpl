@@ -10,14 +10,8 @@ type Config struct {
 	rest.RestConf
 	{{.auth}}
 	{{.jwtTrans}}
-    Consul struct {
-        Target string
-    }
-    BoMongo dbx.BoMongoSetting
-    RedisCache struct {
-        RedisSentinelNode string
-        RedisMasterName   string
-        RedisDB           int
-    }
+
+    ConsulHost string
+    BoMongoPool dbx.BoMongoPool
     TxPool dbx.TxPool
 }

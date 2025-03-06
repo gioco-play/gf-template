@@ -4,6 +4,7 @@ import (
 	{{.configImport}}
 
 	"github.com/redis/go-redis/v9"
+	"github.com/gioco-play/kit-plus/tool/configx"
     "github.com/gioco-play/kit-plus/tool/dbx"
     "strings"
 )
@@ -16,14 +17,16 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c {{.config}}) *ServiceContext {
-	// Redis
-	redisClient := redis.NewFailoverClient(&redis.FailoverOptions{
-		MasterName:    c.RedisCache.RedisMasterName,
-		SentinelAddrs: strings.Split(c.RedisCache.RedisSentinelNode, ";"),
-		DB:            c.RedisCache.RedisDB,
-	})
+	cx := configx.NewConfigCenter(c.ConsulHost)
+    boMongoSetting := configx.Get[dbx.BoMongoSetting](cx, "bo_mongo")
+    // BoMongo Pool
+    boMongoSetting.BoMongoPool = &c.BoMongoPool
 
-	databasex := dbx.New(c.BoMongo).SetTxPool(c.TxPool)
+    // redis
+    redisSetting := configx.Get[dbx.RedisSentinel](cx, "redis")
+    redisClient := redisSetting.Connect()
+
+	databasex := dbx.New(boMongoSetting).SetTxPool(c.TxPool)
 
 	return &ServiceContext{
 		Config:      c,

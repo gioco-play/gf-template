@@ -9,11 +9,7 @@ import (
 type Config struct {
 	zrpc.RpcServerConf
 	Consul consul.Conf
-    BoMongo dbx.BoMongoSetting
-    RedisCache struct {
-        RedisSentinelNode string
-        RedisMasterName   string
-        RedisDB           int
-    }
+
+    BoMongoPool dbx.BoMongoPool
     TxPool dbx.TxPool
 }
