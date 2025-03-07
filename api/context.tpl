@@ -17,7 +17,7 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c {{.config}}) *ServiceContext {
-	cx := configx.NewConfigCenter(c.ConsulHost)
+	cx := configx.NewConfigCenter(c.ConsulHost).Load()
     boMongoSetting := configx.Get[dbx.BoMongoSetting](cx, "bo_mongo")
     // BoMongo Pool
     boMongoSetting.BoMongoPool = &c.BoMongoPool
