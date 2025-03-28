@@ -23,7 +23,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
     // redis
     redisSetting := configx.Get[dbx.RedisSentinel](cx, "redis")
-    redisCache := redisSetting.Connect()
+    redisClient := redisSetting.Connect()
 
 	databasex := dbx.New(boMongoSetting).SetTxPool(c.TxPool)
 
