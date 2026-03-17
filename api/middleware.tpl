@@ -4,17 +4,20 @@ import (
     "net/http"
     "go.mongodb.org/mongo-driver/mongo"
 	"github.com/redis/go-redis/v9"
+	"gorm.io/gorm"
 )
 
 type {{.name}} struct {
 	RedisClient *redis.Client
 	BoDB        *mongo.Client
+	TxDB		*gorm.DB
 }
 
-func New{{.name}}(redisClient *redis.Client, boDB *mongo.Client) *{{.name}} {
+func New{{.name}}(redisClient *redis.Client, boDB *mongo.Client, txDB *gorm.DB) *{{.name}} {
 	return &{{.name}}{
         RedisClient: redisClient,
         BoDB:        boDB,
+		TxDB:		 txDB,
     }
 }
 
