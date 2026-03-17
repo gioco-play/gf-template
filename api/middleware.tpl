@@ -10,14 +10,14 @@ import (
 type {{.name}} struct {
 	RedisClient *redis.Client
 	BoDB        *mongo.Client
-	TxDB		*gorm.DB
+	Tx			*gorm.DB
 }
 
-func New{{.name}}(redisClient *redis.Client, boDB *mongo.Client, txDB *gorm.DB) *{{.name}} {
+func New{{.name}}(redisClient *redis.Client, boDB *mongo.Client, tx *gorm.DB) *{{.name}} {
 	return &{{.name}}{
         RedisClient: redisClient,
         BoDB:        boDB,
-		TxDB:		 txDB,
+		Tx:		     tx,
     }
 }
 
