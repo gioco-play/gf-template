@@ -2,22 +2,19 @@ package middleware
 
 import (
     "net/http"
-    "go.mongodb.org/mongo-driver/mongo"
 	"github.com/redis/go-redis/v9"
-	"gorm.io/gorm"
+	"github.com/gioco-play/kit-plus/tool/dbx"
 )
 
 type {{.name}} struct {
 	RedisClient *redis.Client
-	BoDB        *mongo.Client
-	Tx			*gorm.DB
+	Databasex	*dbx.Databasex
 }
 
-func New{{.name}}(redisClient *redis.Client, boDB *mongo.Client, tx *gorm.DB) *{{.name}} {
+func New{{.name}}(redisClient *redis.Client, dbx *dbx.Databasex) *{{.name}} {
 	return &{{.name}}{
         RedisClient: redisClient,
-        BoDB:        boDB,
-		Tx:		     tx,
+        Databasex:   dbx,
     }
 }
 
