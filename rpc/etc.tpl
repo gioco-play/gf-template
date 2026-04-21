@@ -11,7 +11,7 @@ Telemetry:
   Name: ${APP_NAME}
   Endpoint: ${TRACE_ENDPOINT}
   Sampler: 1.0
-  Batcher: jaeger
+  Batcher: otlpgrpc
 
 BoMongoPool:
   MinPoolSize: ${MONGO_MIN_POOL}
